@@ -1,5 +1,7 @@
 package com.example.downloader.network
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -8,9 +10,16 @@ interface RetrofitImpl {
 }
 
 class RetrofitService : RetrofitImpl {
+
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+
+    }
+    private val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+
     private val retrofit: Retrofit =
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL)
-            .build()
+            .client(client).build()
 
     override val githubRetrofitService: GithubApiService by lazy {
         retrofit.create(GithubApiService::class.java)
@@ -19,6 +28,6 @@ class RetrofitService : RetrofitImpl {
     companion object {
         const val TAG = "RetrofitService"
         const val ORGANIZATION_NAME = "PixelOS-AOSP"
-        const val BASE_URL = "https://raw.githubusercontent.com/$ORGANIZATION_NAME"
+        const val BASE_URL = "https://raw.githubusercontent.com/$ORGANIZATION_NAME/"
     }
 }

@@ -1,5 +1,7 @@
 package com.example.downloader.ui.common
 
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -22,5 +24,10 @@ abstract class BaseActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             replace(R.id.container, f).show(f)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
     }
 }

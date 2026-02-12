@@ -18,9 +18,10 @@ class DefaultDeviceListRepository(
 ) : DeviceListRepository {
     private val deviceListDao by lazy { dbInstance.deviceListDao() }
     override suspend fun getDeviceList(): Result<List<LocalDevice>> = withContext(ioDispatcher) {
-        getDeviceListFromLocal()?.let {
-            Result.Success(it)
-        } ?: when (val remoteDeviceInfo = getDeviceListFromRemote()) {
+        val localData = getDeviceListFromLocal()
+        if (!localData.isEmpty()) {
+            Result.Success(localData)
+        } else when (val remoteDeviceInfo = getDeviceListFromRemote()) {
             is Result.Success -> {
                 val localDeviceList = DeviceListMapper.toLocalDeviceList(remoteDeviceInfo.data)
                 localDeviceList.forEach {
@@ -36,7 +37,7 @@ class DefaultDeviceListRepository(
         }
     }
 
-    override suspend fun getDeviceListFromLocal(): List<LocalDevice>? = withContext(ioDispatcher) {
+    override suspend fun getDeviceListFromLocal(): List<LocalDevice> = withContext(ioDispatcher) {
         deviceListDao.getDeviceList()
     }
 

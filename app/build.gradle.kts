@@ -62,4 +62,5 @@ dependencies {
     // Retrofit dependencies
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.converter.gson)
+    implementation(libs.squareup.logging.interceptor)
 }
