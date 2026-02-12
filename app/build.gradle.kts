@@ -50,4 +50,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    // Retrofit dependencies
+    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.converter.gson)
+
 }
