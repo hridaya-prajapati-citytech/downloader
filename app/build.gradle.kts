@@ -45,6 +45,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.fragment)
     implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -60,5 +62,4 @@ dependencies {
     // Retrofit dependencies
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.converter.gson)
-
 }

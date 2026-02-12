@@ -19,7 +19,7 @@ class MainActivity : BaseActivity() {
             loadFragment(MainFragment.instance())
         }
 
-        binding.bottomNavBar.setOnItemSelectedListener { item ->
+        binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     loadFragment(MainFragment.instance())
