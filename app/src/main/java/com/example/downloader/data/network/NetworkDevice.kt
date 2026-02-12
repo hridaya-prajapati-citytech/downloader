@@ -2,7 +2,7 @@ package com.example.downloader.data.network
 
 import com.google.gson.annotations.SerializedName
 
-data class Device(
+data class NetworkDevice(
     @SerializedName("active") val isActive: Boolean,
     @SerializedName("codename") val codename: String,
     @SerializedName("codename_alt") val codenameAlt: String,

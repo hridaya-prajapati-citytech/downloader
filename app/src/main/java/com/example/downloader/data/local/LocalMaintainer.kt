@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 @Entity("maintainer")
-data class Maintainer(
+data class LocalMaintainer(
     @PrimaryKey val id: UUID,
     @ColumnInfo("display_name") val maintainerName: String,
     @ColumnInfo("github") val maintainerGithub: String,

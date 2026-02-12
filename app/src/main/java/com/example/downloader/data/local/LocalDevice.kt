@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 @Entity("device")
-data class Device(
+data class LocalDevice(
     @PrimaryKey val id: UUID,
     @ColumnInfo("active") val isActive: Boolean,
     @ColumnInfo("codename") val codename: String,

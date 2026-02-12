@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.downloader.data.local.Device
-import com.example.downloader.data.local.DeviceInfo
-import com.example.downloader.data.local.Maintainer
+import com.example.downloader.data.local.LocalDevice
+import com.example.downloader.data.local.LocalDeviceInfo
+import com.example.downloader.data.local.LocalMaintainer
 import com.example.downloader.database.dao.DeviceDao
 import com.example.downloader.database.dao.DeviceListDao
 
 @Database(
-    entities = [Device::class, DeviceInfo::class, Maintainer::class],
+    entities = [LocalDevice::class, LocalDeviceInfo::class, LocalMaintainer::class],
     version = 1,
     exportSchema = false
 )
