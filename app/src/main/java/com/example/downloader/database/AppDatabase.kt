@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import com.example.downloader.data.local.Device
 import com.example.downloader.data.local.DeviceInfo
 import com.example.downloader.data.local.Maintainer
+import com.example.downloader.database.dao.DeviceDao
+import com.example.downloader.database.dao.DeviceListDao
 
 @Database(
     entities = [Device::class, DeviceInfo::class, Maintainer::class],
@@ -14,6 +16,10 @@ import com.example.downloader.data.local.Maintainer
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun deviceDao(): DeviceDao
+    abstract fun deviceListDao(): DeviceListDao
+
     companion object {
         const val DATABASE_NAME = "app_database"
 
