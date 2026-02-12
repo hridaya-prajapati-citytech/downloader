@@ -10,7 +10,6 @@ import com.example.downloader.databinding.ItemListBinding
 class MainDeviceListAdapter : RecyclerView.Adapter<MainDeviceListAdapter.ViewHolder>() {
     private val dataSet = ArrayList<LocalDevice>()
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): ViewHolder {

@@ -18,8 +18,6 @@ class MainActivity : BaseActivity() {
         val view = binding.root
         setContentView(view)
 
-        setSupportActionBar(binding.toolbar)
-
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val bars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
