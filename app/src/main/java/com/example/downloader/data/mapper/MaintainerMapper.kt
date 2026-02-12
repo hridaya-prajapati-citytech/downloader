@@ -7,7 +7,6 @@ import java.util.UUID
 object MaintainerMapper {
     fun toLocalMaintainerMapper(networkMaintainer: NetworkMaintainer): LocalMaintainer {
         return LocalMaintainer(
-            id = UUID.randomUUID(),
             maintainerName = networkMaintainer.maintainerName,
             maintainerGithub = networkMaintainer.maintainerGithub,
             maintainerTelegram = networkMaintainer.maintainerTelegram

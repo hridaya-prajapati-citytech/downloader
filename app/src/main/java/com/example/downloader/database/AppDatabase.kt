@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.downloader.data.local.LocalDevice
 import com.example.downloader.data.local.LocalDeviceInfo
 import com.example.downloader.data.local.LocalMaintainer
@@ -11,10 +12,11 @@ import com.example.downloader.database.dao.DeviceDao
 import com.example.downloader.database.dao.DeviceListDao
 
 @Database(
-    entities = [LocalDevice::class, LocalDeviceInfo::class, LocalMaintainer::class],
+    entities = [LocalDevice::class, LocalDeviceInfo::class],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun deviceDao(): DeviceDao
