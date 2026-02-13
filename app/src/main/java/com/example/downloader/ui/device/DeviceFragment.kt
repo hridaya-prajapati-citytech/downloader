@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.example.downloader.DownloaderApplication
@@ -60,28 +61,34 @@ class DeviceFragment(private val codename: String) : BaseFragment() {
     }
 
     internal fun setupDeviceInfo() {
-        viewModel.deviceInfo.observe { localDeviceInfo ->
+        viewModel.loading.observeNonNull { isLoading ->
+            binding.loadingIndicator.isVisible = isLoading
+            binding.deviceInfoLayout.isVisible = !isLoading
+        }
+
+        viewModel.deviceInfo.observeNonNull { localDeviceInfo ->
             run {
+                binding.loadingIndicator.isVisible = false
                 binding.deviceModel.text =
-                    getString(R.string.model_placeholder, localDeviceInfo?.model)
+                    getString(R.string.model_placeholder, localDeviceInfo.model)
                 binding.deviceVendor.text =
-                    getString(R.string.vendor_placeholder, localDeviceInfo?.vendor)
+                    getString(R.string.vendor_placeholder, localDeviceInfo.vendor)
                 binding.deviceMaintainer.text = getString(
                     R.string.maintainer_placeholder,
-                    localDeviceInfo?.maintainer?.firstOrNull()?.maintainerName
+                    localDeviceInfo.maintainer.firstOrNull()?.maintainerName
                 )
                 binding.deviceStatus.text =
-                    getString(R.string.status_placeholder, localDeviceInfo?.isActive.toString())
+                    getString(R.string.status_placeholder, localDeviceInfo.isActive.toString())
                 binding.lastUpdated.text =
-                    getString(R.string.last_updated_placeholder, localDeviceInfo?.lastUpdated)
+                    getString(R.string.last_updated_placeholder, localDeviceInfo.lastUpdated)
                 binding.releaseStatus.text =
-                    getString(R.string.release_status_placeholder, localDeviceInfo?.release)
+                    getString(R.string.release_status_placeholder, localDeviceInfo.release)
                 binding.deviceArchive.setOnClickListener {
-                    startActivity(Intent(Intent.ACTION_VIEW).setData(localDeviceInfo?.archive?.toUri()))
+                    startActivity(Intent(Intent.ACTION_VIEW).setData(localDeviceInfo.archive.toUri()))
                 }
                 binding.deviceDownload.setOnClickListener {
                     ketch.download(
-                        url = localDeviceInfo?.downloadLink.toString(),
+                        url = localDeviceInfo.downloadLink,
                         path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path,
                     )
                 }
