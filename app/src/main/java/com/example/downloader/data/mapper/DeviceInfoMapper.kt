@@ -19,7 +19,7 @@ object DeviceInfoMapper {
             release = networkDeviceInfo.release,
             vendor = networkDeviceInfo.vendor,
             version = networkDeviceInfo.version,
-            xda = networkDeviceInfo.xda
+            xda = networkDeviceInfo.xda ?: ""
         )
     }
 }

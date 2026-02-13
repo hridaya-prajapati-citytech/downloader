@@ -20,10 +20,17 @@ abstract class BaseActivity : AppCompatActivity() {
     inline fun <reified T : BaseViewModel> getViewModel(): T =
         ViewModelProvider(this)[T::class.java]
 
-    fun loadFragment(f: Fragment) {
-        supportFragmentManager.commit {
-            replace(R.id.container, f).show(f)
+    fun loadFragment(f: Fragment, addBack: Boolean = false) {
+        if (addBack) {
+            supportFragmentManager.commit {
+                replace(R.id.container, f).addToBackStack(f.tag).show(f)
+            }
+        } else {
+            supportFragmentManager.commit {
+                replace(R.id.container, f).show(f)
+            }
         }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

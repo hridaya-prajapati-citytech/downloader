@@ -9,7 +9,7 @@ import com.example.downloader.data.local.LocalDeviceInfo
 @Dao
 interface DeviceDao {
     @Query("SELECT * FROM device_info WHERE codename = :codename")
-    suspend fun getDeviceInfoByCodename(codename: String): LocalDeviceInfo
+    suspend fun getDeviceInfoByCodename(codename: String): LocalDeviceInfo?
 
     @Query("DELETE FROM device_info WHERE codename = :codename")
     suspend fun deleteDeviceInfoByCodename(codename: String)

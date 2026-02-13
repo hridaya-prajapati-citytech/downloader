@@ -45,19 +45,23 @@ class DefaultDeviceRepository(
 
     override suspend fun getDeviceInfo(codename: String): Result<LocalDeviceInfo> =
         withContext(ioDispatcher) {
-            getDeviceInfoFromLocal(codename)?.let {
-                Result.Success(it)
-            } ?: when (val remoteDeviceInfo = getDeviceInfoFromRemote(codename)) {
-                is Result.Success -> {
-                    val localDevice =
-                        DeviceInfoMapper.toLocalDeviceInfoMapper(remoteDeviceInfo.data)
-                    deviceDao.saveDeviceInfo(localDevice)
-                    Result.Success(localDevice)
-                }
+            val localDeviceInfo = getDeviceInfoFromLocal(codename)
 
-                is Result.Error -> Result.Error(remoteDeviceInfo.exception)
-                else -> {
-                    Result.Error(Exception("Unknown error"))
+            if (localDeviceInfo != null) {
+                Result.Success(localDeviceInfo)
+            } else {
+                when (val remoteDeviceInfo = getDeviceInfoFromRemote(codename)) {
+                    is Result.Success -> {
+                        val localDevice =
+                            DeviceInfoMapper.toLocalDeviceInfoMapper(remoteDeviceInfo.data)
+                        deviceDao.saveDeviceInfo(localDevice)
+                        Result.Success(localDevice)
+                    }
+
+                    is Result.Error -> Result.Error(remoteDeviceInfo.exception)
+                    else -> {
+                        Result.Error(Exception("Unknown error"))
+                    }
                 }
             }
         }

@@ -1,14 +1,20 @@
 package com.example.downloader.ui.main
 
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.downloader.data.local.LocalDevice
+import com.example.downloader.data.ui.UIDevice
 import com.example.downloader.databinding.ItemListBinding
+import com.google.android.material.listitem.SwipeableListItem
 
-class MainDeviceListAdapter : RecyclerView.Adapter<MainDeviceListAdapter.ViewHolder>() {
-    private val dataSet = ArrayList<LocalDevice>()
+class MainDeviceListAdapter(private val listener: MainDeviceListAdapterListener) :
+    RecyclerView.Adapter<MainDeviceListAdapter.ViewHolder>() {
+    private val dataSet = ArrayList<UIDevice>()
+
+    interface MainDeviceListAdapterListener {
+        fun itemClicked(codename: String)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -25,19 +31,27 @@ class MainDeviceListAdapter : RecyclerView.Adapter<MainDeviceListAdapter.ViewHol
         holder.bind(dataSet[position])
     }
 
-    fun submitList(newList: List<LocalDevice>) {
+    fun submitList(newList: List<UIDevice>) {
         dataSet.clear()
         dataSet.addAll(newList)
-        Log.d("TAG", "submitList: $newList")
         notifyDataSetChanged()
     }
 
     override fun getItemCount() = dataSet.size
 
-    class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(device: LocalDevice) {
+    inner class ViewHolder(
+        private val binding: ItemListBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(device: UIDevice) {
             binding.listItemText.text = device.codename
             binding.listItemSupportText.text = device.maintainerName
+            binding.downloadButton.setOnClickListener {
+                listener.itemClicked(device.codename)
+            }
+            binding.listItemLayout.setSwipeState(
+                if (device.isRevealed) SwipeableListItem.STATE_OPEN
+                else SwipeableListItem.STATE_CLOSED, Gravity.END, false
+            )
         }
     }
 }

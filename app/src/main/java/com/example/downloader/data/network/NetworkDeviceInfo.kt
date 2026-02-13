@@ -14,5 +14,5 @@ data class NetworkDeviceInfo(
     @SerializedName("release") val release: String,
     @SerializedName("vendor") val vendor: String,
     @SerializedName("version") val version: String,
-    @SerializedName("xda") val xda: String
+    @SerializedName("xda") val xda: String?
 )
