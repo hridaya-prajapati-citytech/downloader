@@ -10,7 +10,8 @@
         android:id="@+id/device_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="4dp"
+        android:background="?attr/colorSurfaceContainerHigh"
         android:clipToPadding="false"
+        android:paddingVertical="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </androidx.constraintlayout.widget.ConstraintLayout>

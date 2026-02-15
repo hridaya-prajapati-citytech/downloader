@@ -33,7 +33,6 @@ object DeviceListMapper {
                 model = localDevice.model,
                 vendor = localDevice.vendor,
                 version = localDevice.version,
-                isRevealed = false
             )
         }
     }

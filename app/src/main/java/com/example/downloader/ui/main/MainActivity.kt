@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var snackbar: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +51,6 @@ class MainActivity : BaseActivity() {
             )
         }
 
-
-
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -67,14 +66,12 @@ class MainActivity : BaseActivity() {
             true
         }
 
-        grabPermisions()
+        grabPermissions()
     }
 
-    private lateinit var snackbar: Snackbar
-
-    internal fun grabPermisions() {
+    internal fun grabPermissions() {
         var permissions = arrayOf<String>()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !getSystemService(NotificationManager::class.java).areNotificationsEnabled()) {
+        if (!getSystemService(NotificationManager::class.java).areNotificationsEnabled()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 permissions = permissions.plus(android.Manifest.permission.POST_NOTIFICATIONS)
             }

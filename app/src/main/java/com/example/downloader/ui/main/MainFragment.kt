@@ -1,14 +1,16 @@
 package com.example.downloader.ui.main
 
+import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import com.example.downloader.R
 import com.example.downloader.data.mapper.DeviceListMapper
 import com.example.downloader.databinding.FragmentMainBinding
 import com.example.downloader.ui.common.BaseFragment
@@ -23,6 +25,21 @@ class MainFragment(private val listener: FragmentListener) : BaseFragment() {
     private lateinit var adapter: MainDeviceListAdapter
 
 
+    class MarginItemDecoration(context: Context) : ItemDecoration() {
+        private val itemMargin: Int =
+            context.resources.getDimensionPixelSize(R.dimen.list_item_margin)
+
+        override fun getItemOffsets(
+            outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
+        ) {
+            val position = parent.getChildAdapterPosition(view)
+            if (position != state.itemCount - 1) {
+                outRect.bottom = itemMargin
+            }
+        }
+    }
+
+
     interface FragmentListener {
         fun loadFragmentFromChild(f: Fragment)
     }
@@ -32,19 +49,7 @@ class MainFragment(private val listener: FragmentListener) : BaseFragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.deviceList) { v, insets ->
-            val bars = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
-            )
-            v.updatePadding(
-                left = bars.left,
-                top = bars.top,
-                right = bars.right,
-                bottom = bars.bottom,
-            )
-            WindowInsetsCompat.CONSUMED
-        }
+        binding.deviceList.addItemDecoration(MarginItemDecoration(requireContext()))
 
         return binding.root
     }
