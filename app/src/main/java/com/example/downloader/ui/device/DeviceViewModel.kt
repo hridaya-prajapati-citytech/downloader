@@ -17,15 +17,13 @@ class DeviceViewModel(application: Application) : BaseViewModel(application) {
     private val _deviceInfo by lazy { MutableLiveData<LocalDeviceInfo>() }
     val deviceInfo: LiveData<LocalDeviceInfo> = _deviceInfo
 
-
     private val _loading by lazy { MutableLiveData(true) }
     val loading: LiveData<Boolean> = _loading
 
     private val deviceInfoRepository: DeviceRepository = DefaultDeviceRepository(
         RetrofitService().githubRetrofitService, AppDatabase.getDatabase(getApplication())
     )
-
-    val disposables = CompositeDisposable()
+    private val disposables by lazy { CompositeDisposable() }
 
     fun loadDeviceInfo(codename: String) {
         disposables.add(

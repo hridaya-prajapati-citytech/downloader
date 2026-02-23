@@ -18,8 +18,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     private val _devices by lazy { MutableLiveData<List<LocalDevice>>() }
     val devices: LiveData<List<LocalDevice>> get() = _devices
 
-
-    val disposables = CompositeDisposable()
+    private val disposables by lazy { CompositeDisposable() }
 
     private val deviceListRepository: DeviceListRepository = DefaultDeviceListRepository(
         RetrofitService().githubRetrofitService, AppDatabase.getDatabase(getApplication())
