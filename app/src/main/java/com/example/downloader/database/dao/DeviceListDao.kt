@@ -1,23 +1,24 @@
 package com.example.downloader.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.downloader.data.local.LocalDevice
+import io.reactivex.Completable
+import io.reactivex.Single
 
 @Dao
 interface DeviceListDao {
     @Query("SELECT * FROM device")
-    suspend fun getDeviceList(): List<LocalDevice>
+    fun getDeviceList(): Single<List<LocalDevice>>
 
     @Query("DELETE FROM device WHERE codename = :codename")
-    suspend fun deleteDeviceByCodename(codename: String)
+    fun deleteDeviceByCodename(codename: String): Completable
 
     @Query("DELETE FROM device")
-    suspend fun deleteDeviceList()
+    fun deleteDeviceList(): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveDevice(localDevice: LocalDevice)
+    fun saveDevice(localDevice: LocalDevice): Completable
 }

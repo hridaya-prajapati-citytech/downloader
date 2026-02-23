@@ -11,13 +11,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
-import androidx.lifecycle.lifecycleScope
 import com.example.downloader.DownloaderApplication
 import com.example.downloader.R
 import com.example.downloader.databinding.FragmentDeviceBinding
 import com.example.downloader.ui.common.BaseFragment
 import com.ketch.Ketch
-import kotlinx.coroutines.launch
 
 class DeviceFragment(private val codename: String) : BaseFragment() {
     private var _binding: FragmentDeviceBinding? = null
@@ -56,7 +54,7 @@ class DeviceFragment(private val codename: String) : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = getViewModel()
-        lifecycleScope.launch { viewModel.loadDeviceInfo(codename) }
+        viewModel.loadDeviceInfo(codename)
         setupDeviceInfo()
     }
 

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.downloader.R
@@ -15,7 +14,6 @@ import com.example.downloader.data.mapper.DeviceListMapper
 import com.example.downloader.databinding.FragmentMainBinding
 import com.example.downloader.ui.common.BaseFragment
 import com.example.downloader.ui.device.DeviceFragment
-import kotlinx.coroutines.launch
 
 class MainFragment(private val listener: FragmentListener) : BaseFragment() {
     private var _binding: FragmentMainBinding? = null
@@ -58,9 +56,7 @@ class MainFragment(private val listener: FragmentListener) : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = getViewModel()
-        lifecycleScope.launch {
-            viewModel.loadDeviceList()
-        }
+        viewModel.loadDeviceList()
 
         setupRecyclerView()
     }

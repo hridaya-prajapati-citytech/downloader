@@ -2,13 +2,15 @@ package com.example.downloader.repository.devicelist
 
 import com.example.downloader.data.local.LocalDevice
 import com.example.downloader.data.network.NetworkDevice
-import com.example.downloader.network.Result
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Single
 
 interface DeviceListRepository {
-    suspend fun getDeviceList(): Result<List<LocalDevice>>
-    suspend fun getDeviceListFromLocal(): List<LocalDevice>?
-    suspend fun getDeviceListFromRemote(): Result<List<NetworkDevice>>
-    suspend fun saveDeviceList(devices: List<LocalDevice>)
-    suspend fun deleteDevices()
-    suspend fun deleteDeviceByCodename(codename: String)
+    fun getDeviceList(): Maybe<List<LocalDevice>>
+    fun getDeviceListFromLocal(): Single<List<LocalDevice>>
+    fun getDeviceListFromRemote(): Maybe<List<NetworkDevice>>
+    fun saveDeviceList(devices: List<LocalDevice>): Completable
+    fun deleteDevices(): Completable
+    fun deleteDeviceByCodename(codename: String): Completable
 }

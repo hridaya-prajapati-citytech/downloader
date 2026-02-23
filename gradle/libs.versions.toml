@@ -16,6 +16,7 @@ constraintlayout = "2.2.1"
 recyclerview = "1.4.0"
 okhttp = "5.3.2"
 rxjava = "2.2.21"
+rxjava-adapter = "2.12.0"
 rxandroid = "2.1.1"
 
 [libraries]
@@ -38,6 +39,8 @@ squareup-converter-gson = { group = "com.squareup.retrofit2", name = "converter-
 
 rxjava2 = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
 rxjava2-rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
+rxjava2-room = { group = "androidx.room", name = "room-rxjava2", version.ref = "rxjava" }
+rxjava2-adapter = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "rxjava-adapter" }
 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }

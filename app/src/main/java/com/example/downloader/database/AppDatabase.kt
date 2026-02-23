@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.downloader.data.local.LocalDevice
 import com.example.downloader.data.local.LocalDeviceInfo
-import com.example.downloader.data.local.LocalMaintainer
 import com.example.downloader.database.dao.DeviceDao
 import com.example.downloader.database.dao.DeviceListDao
 

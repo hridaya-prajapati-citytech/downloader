@@ -5,15 +5,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.downloader.data.local.LocalDeviceInfo
+import io.reactivex.Completable
+import io.reactivex.Maybe
 
 @Dao
 interface DeviceDao {
     @Query("SELECT * FROM device_info WHERE codename = :codename")
-    suspend fun getDeviceInfoByCodename(codename: String): LocalDeviceInfo?
+    fun getDeviceInfoByCodename(codename: String): Maybe<LocalDeviceInfo>
 
     @Query("DELETE FROM device_info WHERE codename = :codename")
-    suspend fun deleteDeviceInfoByCodename(codename: String)
+    fun deleteDeviceInfoByCodename(codename: String): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveDeviceInfo(localDeviceInfo: LocalDeviceInfo)
+    fun saveDeviceInfo(localDeviceInfo: LocalDeviceInfo): Completable
 }

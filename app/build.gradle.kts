@@ -67,4 +67,6 @@ dependencies {
     // RxJava dependencies
     implementation(libs.rxjava2)
     implementation(libs.rxjava2.rxandroid)
+    implementation(libs.rxjava2.room)
+    implementation(libs.rxjava2.adapter)
 }
