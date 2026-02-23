@@ -63,4 +63,8 @@ dependencies {
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.converter.gson)
     implementation(libs.squareup.logging.interceptor)
+
+    // RxJava dependencies
+    implementation(libs.rxjava2)
+    implementation(libs.rxjava2.rxandroid)
 }
